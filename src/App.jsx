@@ -159,6 +159,11 @@ function App() {
 
       setResult(newResult);
       setPredictionHistory(prev => [newResult, ...prev.slice(0, 4)]);
+      
+      // Scroll to results after successful submission
+      setTimeout(() => {
+        document.getElementById('results-section')?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
 
     } catch (error) {
       console.error("❌ Error making prediction:", error);
@@ -166,7 +171,7 @@ function App() {
       if (error.response) {
         setError(error.response.data?.detail || `Server error: ${error.response.status}`);
       } else if (error.request) {
-        setError("Cannot connect to prediction service. Make sure the backend is running on port 8000.");
+        setError("Cannot connect to prediction service. Make sure backend is running on port 8000.");
       } else {
         setError("Failed to make prediction request.");
       }
@@ -416,8 +421,8 @@ This prediction is based on machine learning algorithms and should not replace p
         </div>
       </div>
 
-      {/* Stats Section */}
-      {/* <div className="py-12 px-4 sm:px-6 lg:px-8">
+      {/* Stats Section
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -755,7 +760,7 @@ This prediction is based on machine learning algorithms and should not replace p
                   </div>
                   <div>
                     <h2 className="text-3xl font-bold text-gray-800">AI Model Performance</h2>
-                    <p className="text-gray-600">Powered by machine learning algorithms</p>
+                    <p className="text-gray-600">Powered by advanced machine learning algorithms</p>
                   </div>
                 </div>
               </div>
@@ -783,7 +788,7 @@ This prediction is based on machine learning algorithms and should not replace p
           <div className="lg:col-span-1 space-y-8">
             {/* Result Box */}
             {result && (
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1">
+              <div id="results-section" className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100 hover:shadow-3xl transition-all duration-300 transform hover:-translate-y-1">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-gray-800 flex items-center">
                     {result.prediction === 'Absence' ? (
@@ -885,7 +890,7 @@ This prediction is based on machine learning algorithms and should not replace p
 
             {/* Error Box */}
             {error && (
-              <div className="bg-white rounded-3xl shadow-2xl p-8 border-2 border-red-100 hover:shadow-3xl transition-all duration-300">
+              <div id="results-section" className="bg-white rounded-3xl shadow-2xl p-8 border-2 border-red-100 hover:shadow-3xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-2xl font-bold text-gray-800 flex items-center">
                     <AlertCircle className="h-8 w-8 text-red-500 mr-3" />
@@ -908,7 +913,7 @@ This prediction is based on machine learning algorithms and should not replace p
               </h3>
               <div className="space-y-4 text-gray-600">
                 <p className="leading-relaxed">
-                  Heart disease is the leading cause of death worldwide. Early detection and lifestyle changes can significantly reduce your risk.
+                  Heart disease is leading cause of death worldwide. Early detection and lifestyle changes can significantly reduce your risk.
                 </p>
                 <a href="#" className="inline-flex items-center text-blue-500 hover:text-blue-600 font-semibold group">
                   <span>Learn more</span>
@@ -984,12 +989,12 @@ This prediction is based on machine learning algorithms and should not replace p
                   </div>
                 </div>
                 <p className="text-gray-400 text-center md:text-left">
-                  Empowering healthcare professionals and patients with  AI technology for early heart disease detection.
+                  Empowering healthcare professionals and patients with advanced AI technology for early heart disease detection.
                 </p>
               </div>
 
-              {/* Quick Links */}
-              {/* <div className="flex flex-col items-center md:items-start">
+              {/* Quick Links
+              <div className="flex flex-col items-center md:items-start">
                 <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
                 <div className="flex flex-wrap justify-center md:justify-start gap-6">
                   {['Home', 'About', 'Services', 'Research', 'Contact'].map((link) => (
